@@ -13,7 +13,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 public class MenuActivity extends Activity{
 	private static final String TAG = "MenuActivity";
 	private LayoutInflater mInflater;
+	private ListView mListView;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,9 +32,17 @@ public class MenuActivity extends Activity{
 		
 		mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		
+		// TODO 数据过多时，需要使用子线程从数据库获取数据
 		MenuAdapter adapter = new MenuAdapter(DBManager.getInstance().getRecordList());
-		((ListView) findViewById(R.id.listView)).setAdapter(adapter);
+		mListView = ((ListView) findViewById(R.id.listView));
+		mListView.setAdapter(adapter);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+								
+			}
+		});
 	}
 	
 	public class MenuAdapter extends BaseAdapter {

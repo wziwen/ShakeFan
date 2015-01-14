@@ -21,14 +21,15 @@ public class ShakeActivity extends Activity {
 	private static final String TAG = "ShakeActivity";
 	private static final int SENSOR_SHAKE = 10;
 	private TextView mTextView;
-	private String mType = "";
+	private int mType = 0;
+	private String[] TYPES = {"早餐", "午餐", "晚餐"};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shake);
 		
-		mType = getIntent().getExtras().getString(Bean.TYPE, "");
+		mType = getIntent().getExtras().getInt(Bean.TYPE, 0);
 		
 		mTextView = (TextView) findViewById(R.id.tv_shakeResult);
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -81,7 +82,7 @@ public class ShakeActivity extends Activity {
 				// 只能摇一次
 				unregisterListener();
 				// TODO 添加震动和声音
-				//mVibrator.vibrate(200);
+				mVibrator.vibrate(200);
 				
 				Message msg = new Message();
 				msg.what = SENSOR_SHAKE;
@@ -101,13 +102,24 @@ public class ShakeActivity extends Activity {
 			switch (msg.what) {
 			case SENSOR_SHAKE:
 				Random random = new Random(System.currentTimeMillis());
-				
-				List<Food> list = DBManager.getInstance().getRecordList();
+				List<Food> list = DBManager.getInstance().getRecordList(mType);
 				int id = random.nextInt(list.size());
-				String name = list.get(id).name; 
+				Food food = list.get(id); 
 				
-				mTextView.setText("你挑到的是:" + name);
+				// eg: 你挑到的  早餐 是：楼下 的 纸包鸡， 电话是 1590000000.
+				String info = "您挑到的\t" + TYPES[mType] + "\t是:\t";
+				if (!food.restaurant.equals("")) {
+					info += food.restaurant + "\t的";
+				}
 				
+				info += food.name;
+				
+				if (!food.phone.equals("")) {
+					info += ",电话是\t" + food.phone;
+				}
+				
+				info += ".";
+				mTextView.setText(info);
 				Log.d(TAG, "random value: " + id);
 				break;
 			}

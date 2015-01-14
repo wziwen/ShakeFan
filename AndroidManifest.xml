@@ -30,6 +30,14 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.wenziwen.shakefan.MenuActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name="com.wenziwen.shakefan.EditMenuActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.wenziwen.shakefan.AboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.wenziwen.shakefan.UsageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.wenziwen.shakefan.SettingActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -3,9 +3,18 @@
     tools:context="com.wenziwen.shakefan.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_menu"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
-
+        android:showAsAction="ifRoom"
+        android:title="菜单"/>
+    
+    <item
+        android:id="@+id/action_usage"
+        android:orderInCategory="100"
+        android:title="说明"/>
+    
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:title="关于"/>
 </menu>

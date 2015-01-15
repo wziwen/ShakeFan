@@ -79,7 +79,7 @@ public class ShakeActivity extends Activity {
 			int medumValue = 19; // 三星 i9250怎么晃都不会超过20，没办法，只设置19了
 			if (Math.abs(x) > medumValue || Math.abs(y) > medumValue
 					|| Math.abs(z) > medumValue) {
-				// 只能摇一次
+				// TODO 研究是否只允许一个小时摇一次
 				unregisterListener();
 				// TODO 添加震动和声音
 				mVibrator.vibrate(250);
@@ -121,6 +121,8 @@ public class ShakeActivity extends Activity {
 				info += ".";
 				mTextView.setText(info);
 				Log.d(TAG, "random value: " + id);
+				
+				reisterListener();
 				break;
 			}
 		}

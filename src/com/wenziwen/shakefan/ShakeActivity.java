@@ -82,7 +82,7 @@ public class ShakeActivity extends Activity {
 				// 只能摇一次
 				unregisterListener();
 				// TODO 添加震动和声音
-				mVibrator.vibrate(200);
+				mVibrator.vibrate(250);
 				
 				Message msg = new Message();
 				msg.what = SENSOR_SHAKE;

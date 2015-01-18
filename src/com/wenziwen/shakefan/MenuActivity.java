@@ -3,6 +3,7 @@ package com.wenziwen.shakefan;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -38,8 +39,7 @@ public class MenuActivity extends Activity{
 		setContentView(R.layout.activity_menu);
 		
 		mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
-		// TODO 数据过多时，需要使用子线程从数据库获取数据
+				
 		mListView = ((ListView) findViewById(R.id.listView));
 		
 		updateList();
@@ -84,16 +84,6 @@ public class MenuActivity extends Activity{
 		});
 	}
 	
-	private void updateList() {
-		if (mAdapter == null) {
-			mAdapter = new MenuAdapter(DBManager.getInstance().getRecordList());
-		} else {
-			Log.d(TAG, "update list");
-			mAdapter.updateList(DBManager.getInstance().getRecordList());
-		}
-		mListView.setAdapter(mAdapter);		
-	}
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -118,6 +108,17 @@ public class MenuActivity extends Activity{
 		return true;
 	}
 	
+	private void updateList() {
+		// TODO 数据过多时，需要使用子线程从数据库获取数据
+		if (mAdapter == null) {
+			mAdapter = new MenuAdapter(DBManager.getInstance().getRecordList());
+		} else {
+			Log.d(TAG, "update list");
+			mAdapter.updateList(DBManager.getInstance().getRecordList());
+		}
+		mListView.setAdapter(mAdapter);		
+	}
+
 	private void toast(String msg) {
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}
@@ -151,6 +152,7 @@ public class MenuActivity extends Activity{
 			return position;
 		}
 
+		@SuppressLint("InflateParams")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null ) {

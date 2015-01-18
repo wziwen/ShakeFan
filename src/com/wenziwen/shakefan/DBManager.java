@@ -7,7 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-public class DBManager extends LxDBManager{
+public class DBManager extends DataBase{
 	
 	private static DBManager mInstance= null;	
 	private static final String TB_FOOD = "tb_food";

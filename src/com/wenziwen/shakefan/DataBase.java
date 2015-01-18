@@ -10,7 +10,7 @@ import android.database.sqlite.*;
 /**
  * 数据库相关操作类
  */
-public abstract class LxDBManager extends SQLiteOpenHelper {
+public abstract class DataBase extends SQLiteOpenHelper {
 
 	/** 数据库的名字 */
 	private static final String DATABASE_NAME = "lx.db";
@@ -19,7 +19,6 @@ public abstract class LxDBManager extends SQLiteOpenHelper {
 	private static final int DBTABASE_VERSION = 1;
 
 	/** 上下文 */
-	private Context mContext;
 	private SQLiteDatabase db = null;
 
 	/**
@@ -28,9 +27,8 @@ public abstract class LxDBManager extends SQLiteOpenHelper {
 	 * @param context
 	 *            context对象
 	 */
-	public LxDBManager(Context context) {
+	public DataBase(Context context) {
 		super(context, DATABASE_NAME, null, DBTABASE_VERSION);
-		mContext = context;		
 		db = getWritableDatabase();
 	}	
 	

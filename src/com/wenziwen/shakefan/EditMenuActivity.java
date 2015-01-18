@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class EditMenuActivity extends Activity{
-	private static final String TAG = "EditMenuActivity";
 	public static final String FOOD_ID = "food_id";
 	public static final String FOOD_NAME = "food_name";
 	public static final String FOOD_TYPE = "food_type";

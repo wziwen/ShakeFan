@@ -3,6 +3,9 @@ package com.wenziwen.shakefan;
 import java.util.List;
 import java.util.Random;
 
+import com.basv.gifmoviewview.widget.GifMovieView;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -13,6 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class ShakeActivity extends Activity {
@@ -21,8 +25,13 @@ public class ShakeActivity extends Activity {
 	private static final String TAG = "ShakeActivity";
 	private static final int SENSOR_SHAKE = 10;
 	private TextView mTextView;
+	private GifMovieView mGifView;
 	private int mType = 0;
 	private String[] TYPES = {"早餐", "午餐", "晚餐"};
+	/**
+	 * GIF 资源，暂时只有一个
+	 */
+	private int[] GIF_RES = {R.drawable.black_man_eat_chicken};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,8 @@ public class ShakeActivity extends Activity {
 		mType = getIntent().getExtras().getInt(Bean.TYPE, 0);
 		
 		mTextView = (TextView) findViewById(R.id.tv_shakeResult);
+		mGifView = (GifMovieView) findViewById(R.id.gif_view);
+		
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 	}
@@ -53,7 +64,7 @@ public class ShakeActivity extends Activity {
 		if (mSensorManager != null) {
 			mSensorManager.registerListener(sensorEventListener,
 					mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-					mSensorManager.SENSOR_DELAY_NORMAL);
+					SensorManager.SENSOR_DELAY_NORMAL);
 		}
 	}
 	
@@ -95,7 +106,8 @@ public class ShakeActivity extends Activity {
 		}
 	};
 	
-	Handler mHandler = new Handler() {
+	@SuppressLint("HandlerLeak")
+	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
@@ -121,6 +133,11 @@ public class ShakeActivity extends Activity {
 				info += ".";
 				mTextView.setText(info);
 				Log.d(TAG, "random value: " + id);
+				
+				// 显示Gif图片
+				int movie = random.nextInt(GIF_RES.length);
+				mGifView.setMovieResource(GIF_RES[movie]);
+				mGifView.setVisibility(View.VISIBLE);
 				
 				reisterListener();
 				break;

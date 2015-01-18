@@ -19,6 +19,9 @@ public class Food {
 	}
 	
 	public long id;
+	/**
+	 * 类型：0：早餐；1：午餐；2：晚餐
+	 */
 	public int type;
 	public String name;
 	public String phone;
